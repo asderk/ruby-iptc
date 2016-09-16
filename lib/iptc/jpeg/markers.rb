@@ -186,8 +186,11 @@ module IPTC
           super type, data
         end
         def valid?
-          if read(5)!="JFIF\0"
-            return false
+          segment = read(5)
+          if !segment.include?('JFXX')
+            if segment !="JFIF\0"
+              return false
+            end
           end
           return true
         end
